@@ -3,7 +3,9 @@ import math
 
 extension = '.txt'
 directory = './input/'
-txt_name = directory + "rosalind_ins" + extension
+name_part = 'rosalind_'
+problem_name = 'ins'
+txt_name = directory + name_part + problem_name + extension
 
 new_line = '\n'
 space = ' '

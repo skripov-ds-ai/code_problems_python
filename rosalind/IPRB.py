@@ -3,7 +3,9 @@ import math
 
 extension = '.txt'
 directory = './input/'
-txt_name = directory + "rosalind_iprb" + extension
+name_part = 'rosalind_'
+problem_name = 'iprb'
+txt_name = directory + name_part + problem_name + extension
 
 with open(txt_name, 'r') as read:
     input_str = read.readlines()

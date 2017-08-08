@@ -4,7 +4,8 @@ import math
 extension = '.txt'
 directory = './input/'
 name_part = 'rosalind_'
-txt_name = directory + name_part + "rna" + extension
+problem_name = 'rna'
+txt_name = directory + name_part + problem_name + extension
 
 with open(txt_name, 'r') as read:
     s = read.readlines()[0]
