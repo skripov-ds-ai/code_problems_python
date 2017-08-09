@@ -1,5 +1,3 @@
-# todo
-
 from Bio import Entrez
 import for_input_and_output
 from my_own import email
