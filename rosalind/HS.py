@@ -21,12 +21,16 @@ def max_heapify(arr, n, i):
         max_heapify(arr, n, largest)
 
 
+def build_max_heap(A):
+    for i in range(len(A) // 2, -1, -1):
+        max_heapify(A, i, 0)
+
+
 def heap_sort(arr):
 
     n = len(arr)
 
-    for i in range(n // 2, -1, -1):
-        max_heapify(arr, n, i)
+    build_max_heap(arr)
 
     for i in range(n - 1, 0, -1):
         arr[i], arr[0] = arr[0], arr[i]
