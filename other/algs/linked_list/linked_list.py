@@ -80,6 +80,10 @@ class LinkedList:
         # здесь будет ваш код
 
     def insert(self, afterNode, newNode):
+        if not self.head and not self.tail and not afterNode:
+            self.add_in_tail(newNode)
+            return
+
         self._length += 1
 
         if not afterNode:
