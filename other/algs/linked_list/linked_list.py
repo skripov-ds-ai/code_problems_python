@@ -67,6 +67,12 @@ class LinkedList:
             prev = node
             if node:
                 node = node.next
+
+        node = self.head
+        while node:
+            if not node.next:
+                self.tail = node
+            node = node.next
         # здесь будет ваш код
 
     def clean(self):
@@ -80,7 +86,7 @@ class LinkedList:
         # здесь будет ваш код
 
     def insert(self, afterNode, newNode):
-        if not self.head and not self.tail and not afterNode:
+        if self._length == 0 and not afterNode:
             self.add_in_tail(newNode)
             return
 
