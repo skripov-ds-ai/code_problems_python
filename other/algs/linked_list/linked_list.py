@@ -52,6 +52,7 @@ class LinkedList:
                 self._length -= 1
                 node = node.next
                 if not all:
+                    self.head = node
                     return
             prev = node
             self.head = node
@@ -62,6 +63,11 @@ class LinkedList:
                     node = node.next
                     self._length -= 1
                     if not all:
+                        node = self.head
+                        while node:
+                            if not node.next:
+                                self.tail = node
+                            node = node.next
                         return
                 prev.next = node
             prev = node
