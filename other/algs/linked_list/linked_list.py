@@ -47,32 +47,35 @@ class LinkedList:
         node = self.head
         prev = None
 
+        ok = True
+
         if node and node.value == val:
             while node and node.value == val:
                 self._length -= 1
                 node = node.next
                 if not all:
+                    ok = False
                     self.head = node
-                    return
+                    break
             prev = node
             self.head = node
 
-        while node:
-            if node.value == val:
-                while node and node.value == val:
+        if ok:
+            while node:
+                if node.value == val:
+                    while node and node.value == val:
+                        node = node.next
+                        self._length -= 1
+                        if not all:
+                            ok = False
+                            break
+                    prev.next = node
+
+                if not ok:
+                    break
+                prev = node
+                if node:
                     node = node.next
-                    self._length -= 1
-                    if not all:
-                        node = self.head
-                        while node:
-                            if not node.next:
-                                self.tail = node
-                            node = node.next
-                        return
-                prev.next = node
-            prev = node
-            if node:
-                node = node.next
 
         node = self.head
         while node:

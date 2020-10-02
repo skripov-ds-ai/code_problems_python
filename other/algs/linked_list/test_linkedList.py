@@ -21,7 +21,7 @@ class TestLinkedList(TestCase):
 
     def test_delete_first(self):
         selected = 1
-        l, _ = self.make_list(1, 1, 1, 42, 1)
+        l, _ = self.make_list(2, 2, 2, 42, 1)
         size = l.len() - 1
         l.delete(selected, all=False)
         self.assertEqual(size, l.len())
@@ -38,15 +38,11 @@ class TestLinkedList(TestCase):
         l, _ = self.make_list(1)
         size = 0
         l.delete(selected, all=False)
-        # l.print_all_nodes()
-        # print()
-        # print(l.tail.value)
-
         self.assertEqual(size, l.len())
 
     def test_delete_all(self):
         selected = 1
-        l, _ = self.make_list(1, 1, 2, 1, 42, 1)
+        l, _ = self.make_list(1, 1, 2, 1, 42, 1, 42, 42)
         size = l.len() - 4
         l.delete(selected, all=True)
         self.assertEqual(size, l.len())
