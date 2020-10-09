@@ -97,12 +97,13 @@ class LinkedList:
         # здесь будет ваш код
 
     def insert(self, afterNode, newNode):
-        self._length += 1
 
-        if self._length == 0 and not afterNode:
+        if self._length == 0:
+            self._length += 1
             self.add_in_tail(newNode)
             return
 
+        self._length += 1
         if not afterNode:
             newNode.next = self.head
             self.head = newNode
