@@ -19,11 +19,23 @@ class TestLinkedList(TestCase):
         found = l.find_all(selected)
         self.assertListEqual(nodes, found)
 
+    def test_find_all1(self):
+        selected = 1
+        l, nodes = self.make_list(42, 32)
+        nodes = [node for node in nodes if node.value == selected]
+        found = l.find_all(selected)
+        self.assertListEqual(nodes, found)
+
     def test_delete_first(self):
         selected = 1
         l, _ = self.make_list(2, 2, 2, 42, 1)
         size = l.len() - 1
         l.delete(selected, all=False)
+        l.print_all_nodes()
+        print(l.head)
+        print(l.tail)
+        print(l.head.value)
+        print(l.tail.value)
         self.assertEqual(size, l.len())
 
     def test_delete_first_empty(self):
@@ -31,6 +43,9 @@ class TestLinkedList(TestCase):
         l, _ = self.make_list()
         size = 0
         l.delete(selected, all=False)
+        l.print_all_nodes()
+        print(l.head)
+        print(l.tail)
         self.assertEqual(size, l.len())
 
     def test_delete_first_one_element(self):
@@ -38,6 +53,9 @@ class TestLinkedList(TestCase):
         l, _ = self.make_list(1)
         size = 0
         l.delete(selected, all=False)
+        l.print_all_nodes()
+        print(l.head)
+        print(l.tail)
         self.assertEqual(size, l.len())
 
     def test_delete_all(self):
@@ -45,7 +63,34 @@ class TestLinkedList(TestCase):
         l, _ = self.make_list(1, 1, 2, 1, 42, 1, 42, 42)
         size = l.len() - 4
         l.delete(selected, all=True)
+        l.print_all_nodes()
+        print(l.head)
+        print(l.tail)
+        print(l.head.value)
+        print(l.tail.value)
         self.assertEqual(size, l.len())
+
+    def test_delete_all1(self):
+        selected = 1
+        l, _ = self.make_list(2, 42, 42, 42)
+        size = l.len()
+        l.delete(selected, all=True)
+        l.print_all_nodes()
+        print(l.head)
+        print(l.tail)
+        print(l.head.value)
+        print(l.tail.value)
+        self.assertEqual(size, l.len())
+
+    # def test_delete_all2(self):
+    #     selected = 1
+    #     l, _ = self.make_list(1, 1, 1)
+    #     size = l.len()
+    #     l.delete(selected, all=True)
+    #     l.print_all_nodes()
+    #     print(l.head)
+    #     print(l.tail)
+    #     # self.assertEqual(size, l.len())
 
     def test_clean(self):
         l, _ = self.make_list(1, 2)

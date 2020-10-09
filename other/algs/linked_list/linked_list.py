@@ -82,6 +82,8 @@ class LinkedList:
             if not node.next:
                 self.tail = node
             node = node.next
+        if self._length == 0:
+            self.tail = None
         # здесь будет ваш код
 
     def clean(self):
