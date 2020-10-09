@@ -108,11 +108,13 @@ class LinkedList:
             self.head = newNode
             return
 
-        node = self.head
-        while node is not afterNode:
-            node = node.next
-        if node.next and node.next.next:
-            newNode.next = node.next.next
-        node.next = newNode
+        newNode.next = afterNode.next
+        afterNode.next = newNode
+        # node = self.head
+        # while node is not afterNode:
+        #     node = node.next
+        # if node.next and node.next.next:
+        #     newNode.next = node.next.next
+        # node.next = newNode
         # здесь будет ваш код
 
