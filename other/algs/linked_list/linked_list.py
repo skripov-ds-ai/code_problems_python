@@ -101,7 +101,6 @@ class LinkedList:
             return
 
         if self._length == 0:
-            self._length += 1
             self.add_in_tail(newNode)
             return
 
