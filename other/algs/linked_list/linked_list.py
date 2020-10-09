@@ -97,6 +97,8 @@ class LinkedList:
         # здесь будет ваш код
 
     def insert(self, afterNode, newNode):
+        if not newNode:
+            return
 
         if self._length == 0:
             self._length += 1
