@@ -1,10 +1,10 @@
 from unittest import TestCase
-from other.algs.linked_list.linked_list import LinkedList, Node
+from other.algs.linked_list.linked_list2 import LinkedList2, Node
 
 
 class TestLinkedList(TestCase):
     def make_list(self, *vals):
-        l = LinkedList()
+        l = LinkedList2()
         nodes = []
         for v in vals:
             node = Node(v)
@@ -30,6 +30,8 @@ class TestLinkedList(TestCase):
         selected = 1
         l, _ = self.make_list(2, 2, 2, 42, 1)
         size = l.len() - 1
+        l.print_all_nodes()
+        print()
         l.delete(selected, all=False)
         l.print_all_nodes()
         print(l.head)
@@ -56,7 +58,6 @@ class TestLinkedList(TestCase):
         l.print_all_nodes()
         print(l.head)
         print(l.tail)
-        print(l.len())
         self.assertEqual(size, l.len())
 
     def test_delete_all(self):
@@ -146,7 +147,6 @@ class TestLinkedList(TestCase):
         self.assertEqual(42, nodes[2].next.value)
 
     def test_insert_after3(self):
-        # TODO: FIX NONE!!!!!
         l, nodes = self.make_list()
         # self.assertEqual(3, l.len())
         node = Node(42)
