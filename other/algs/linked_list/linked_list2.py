@@ -43,7 +43,6 @@ class LinkedList2:
         # здесь будет ваш код
 
     def delete(self, val, all=False):
-        # TODO: fix!!
         node = self.head
         prev = None
 
@@ -70,7 +69,8 @@ class LinkedList2:
                             ok = False
                             break
                     prev.next = node
-                    node.prev = prev
+                    # TODO: node is None trouble!!!
+                    # node.prev = prev
 
                 if not ok:
                     break

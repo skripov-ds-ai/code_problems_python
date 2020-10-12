@@ -84,6 +84,34 @@ class TestLinkedList(TestCase):
         print(l.tail.value)
         self.assertEqual(size, l.len())
 
+    def test_delete_all3(self):
+        selected = 42
+        l, _ = self.make_list(2, 42, 42, 42)
+        size = 1
+        l.delete(selected, all=True)
+        l.print_all_nodes()
+        print()
+        # print(l.head)
+        # print(l.tail)
+        # print(l.head.value)
+        # print(l.tail.value)
+        print(l.len())
+        self.assertEqual(size, l.len())
+
+    def test_delete_all4(self):
+        selected = 42
+        l, _ = self.make_list(2, 42, 42, 42, 1)
+        size = 2
+        l.delete(selected, all=True)
+        l.print_all_nodes()
+        print()
+        # print(l.head)
+        # print(l.tail)
+        # print(l.head.value)
+        # print(l.tail.value)
+        print(l.len())
+        self.assertEqual(size, l.len())
+
     # def test_delete_all2(self):
     #     selected = 1
     #     l, _ = self.make_list(1, 1, 1)
