@@ -34,6 +34,9 @@ class TestLinkedList(TestCase):
         print()
         l.delete(selected, all=False)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         print(l.head)
         print(l.tail)
         print(l.head.value)
@@ -66,11 +69,29 @@ class TestLinkedList(TestCase):
         size = l.len() - 4
         l.delete(selected, all=True)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         print(l.head)
         print(l.tail)
         print(l.head.value)
         print(l.tail.value)
         self.assertEqual(size, l.len())
+
+    def test_delete_all42(self):
+        selected = 1
+        l, _ = self.make_list(7, 6, 8, 1, 1, 1, 1, 1, 2, 3, 4, 5, 1)
+        # size = l.len() - 4
+        l.delete(selected, all=True)
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
+        print(l.head)
+        print(l.tail)
+        # print(l.head.value)
+        # print(l.tail.value)
+        # self.assertEqual(size, l.len())
 
     def test_delete_all1(self):
         selected = 1
@@ -78,6 +99,9 @@ class TestLinkedList(TestCase):
         size = l.len()
         l.delete(selected, all=True)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         print(l.head)
         print(l.tail)
         print(l.head.value)
@@ -90,6 +114,8 @@ class TestLinkedList(TestCase):
         size = 1
         l.delete(selected, all=True)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
         print()
         # print(l.head)
         # print(l.tail)
@@ -104,6 +130,8 @@ class TestLinkedList(TestCase):
         size = 2
         l.delete(selected, all=True)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
         print()
         # print(l.head)
         # print(l.tail)
@@ -125,6 +153,11 @@ class TestLinkedList(TestCase):
     def test_clean(self):
         l, _ = self.make_list(1, 2)
         l.clean()
+
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         self.assertEqual(0, l.len())
 
     def test_len_empty(self):

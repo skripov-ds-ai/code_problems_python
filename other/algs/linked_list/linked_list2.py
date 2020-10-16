@@ -52,6 +52,8 @@ class LinkedList2:
             while node and node.value == val:
                 self._length -= 1
                 node = node.next
+                if node:
+                    node.prev = prev
                 if not all:
                     ok = False
                     self.head = node
@@ -65,12 +67,14 @@ class LinkedList2:
                     while node and node.value == val:
                         node = node.next
                         self._length -= 1
+                        if node:
+                            node.prev = prev
                         if not all:
                             ok = False
                             break
                     prev.next = node
-                    # TODO: node is None trouble!!!
-                    # node.prev = prev
+                    if node:
+                        node.prev = prev
 
                 if not ok:
                     break
@@ -131,3 +135,10 @@ class LinkedList2:
         while node != None:
             print(node.value)
             node = node.next
+
+    # TODO: remove
+    def print_all_reverse_nodes(self):
+        node = self.tail
+        while node != None:
+            print(node.value)
+            node = node.prev
