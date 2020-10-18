@@ -112,8 +112,11 @@ class LinkedList2:
             return
 
         self._length += 1
+        if afterNode.next:
+            afterNode.next.prev = newNode
         newNode.next = afterNode.next
         afterNode.next = newNode
+        newNode.prev = afterNode
         if newNode and not newNode.next:
             self.tail = newNode
 
