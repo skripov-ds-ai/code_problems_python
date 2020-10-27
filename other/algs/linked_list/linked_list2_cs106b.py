@@ -18,7 +18,6 @@ class Node(DummyNode):
 
 
 class LinkedList2:
-    # TODO: all!!!
     def __init__(self):
         self.head = DummyNode()
         self.tail = DummyNode()
@@ -59,7 +58,6 @@ class LinkedList2:
         # здесь будет ваш код
 
     def delete(self, val, all=False):
-        # TODO: вроде поправил в 1:46, надо потестить
         node = self.head.next
         prev = self.head
         ok = True
@@ -96,7 +94,6 @@ class LinkedList2:
         # здесь будет ваш код
 
     def insert(self, afterNode, newNode):
-        # TODO!!!
         if newNode is None or not bool(newNode):
             return
 
