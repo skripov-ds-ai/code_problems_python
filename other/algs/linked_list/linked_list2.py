@@ -132,14 +132,12 @@ class LinkedList2:
         self._length += 1
         # здесь будет ваш код
 
-    # TODO: remove
     def print_all_nodes(self):
         node = self.head
         while node != None:
             print(node.value)
             node = node.next
 
-    # TODO: remove
     def print_all_reverse_nodes(self):
         node = self.tail
         while node != None:
