@@ -6,10 +6,7 @@ class Node:
 
 class LinkedList:
     def __init__(self):
-        self.head = None
-        self.tail = None
-        # accumulator
-        self._length = 0
+        self.clean()
 
     def add_in_tail(self, item):
         if self.head is None:
