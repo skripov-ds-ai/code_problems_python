@@ -19,11 +19,7 @@ class Node(DummyNode):
 
 class LinkedList2:
     def __init__(self):
-        self.head = DummyNode()
-        self.tail = DummyNode()
-        self.head.next = self.tail
-        self.tail.prev = self.head
-        self._length = 0
+        self.clean()
 
     def add_in_tail(self, item):
         self.tail.prev.next = item
