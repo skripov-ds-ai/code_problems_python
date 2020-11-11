@@ -36,7 +36,7 @@ class TestLinkedList(TestCase):
         # self.assertListEqual(nodes, found)
 
     def test_insert(self):
-        t = [2] * 16
+        t = [2] * 15 + [3]
         a = self.make_list(*t)
         a.insert(0, 1)
         for i in range(a.count):
@@ -46,7 +46,7 @@ class TestLinkedList(TestCase):
         # self.assertListEqual(nodes, found)
 
     def test_insert1(self):
-        t = [2] * 15
+        t = [2] * 14 + [3]
         a = self.make_list(*t)
         a.insert(0, 1)
         for i in range(a.count):
@@ -56,7 +56,7 @@ class TestLinkedList(TestCase):
         # self.assertListEqual(nodes, found)
 
     def test_insert2(self):
-        t = [2] * 16
+        t = [2] * 15 + [3]
         a = self.make_list(*t)
         a.insert(16, 1)
         for i in range(a.count):
@@ -66,7 +66,7 @@ class TestLinkedList(TestCase):
         # self.assertListEqual(nodes, found)
 
     def test_insert3(self):
-        t = [2] * 16
+        t = [2] * 16 + [3]
         a = self.make_list(*t)
         a.insert(15, 1)
         for i in range(a.count):
@@ -76,7 +76,7 @@ class TestLinkedList(TestCase):
         # self.assertListEqual(nodes, found)
 
     def test_insert4(self):
-        t = [2] * 15
+        t = [2] * 14 + [3]
         a = self.make_list(*t)
         a.insert(15, 1)
         for i in range(a.count):
@@ -86,7 +86,7 @@ class TestLinkedList(TestCase):
         # self.assertListEqual(nodes, found)
 
     def test_insert5(self):
-        t = [2] * 14
+        t = [2] * 14 + [3]
         a = self.make_list(*t)
         a.insert(12, 1)
         for i in range(a.count):
@@ -99,6 +99,19 @@ class TestLinkedList(TestCase):
         t = [2] * 14
         a = self.make_list(*t)
         a.insert(17, 1)
+        for i in range(a.count):
+            print(a[i])
+        print(f"count = {a.count}")
+        print(f"capacity = {a.capacity}")
+        # self.assertListEqual(nodes, found)
+
+    def test_insert6(self):
+        t = [2] * 16 + [3]
+        a = self.make_list(*t)
+        for i in range(a.count):
+            print(a[i])
+        print("$$$")
+        a.insert(8, 1)
         for i in range(a.count):
             print(a[i])
         print(f"count = {a.count}")
