@@ -7,6 +7,7 @@ class DynArray:
         self.capacity = 16
         self.array = self.make_array(self.capacity)
         self.min_capacity = 16
+        self.full_percent = 0.5
 
     def __len__(self):
         return self.count
@@ -49,13 +50,14 @@ class DynArray:
         # добавляем объект itm в позицию i, начиная с 0
 
     def delete(self, i):
-        t = int(2 * self.capacity / 3)
-        if self.count <= t:
-            self.resize(t)
         if i < 0 or i > self.count:
             raise IndexError('Index is out of bounds')
 
         for j in range(i, self.count - 1):
             self.array[j] = self.array[j + 1]
         self.count -= 1
+
+        t = int(2 * self.capacity / 3)
+        if self.count <= self.capacity * self.full_percent:
+            self.resize(t)
         # удаляем объект в позиции i

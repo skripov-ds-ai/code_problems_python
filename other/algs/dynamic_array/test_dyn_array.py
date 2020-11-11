@@ -154,7 +154,8 @@ class TestLinkedList(TestCase):
     def test_delete3(self):
         t = [0] + [2] * 18 + [1]*2
         a = self.make_list(*t)
-        a.delete(20)
+        for x in range(10):
+            a.delete(1)
 
         for i in range(a.count):
             print(a[i])
