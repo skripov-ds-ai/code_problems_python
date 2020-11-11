@@ -95,6 +95,16 @@ class TestLinkedList(TestCase):
         print(f"capacity = {a.capacity}")
         # self.assertListEqual(nodes, found)
 
+    def test_insert6(self):
+        t = [2] * 14
+        a = self.make_list(*t)
+        a.insert(17, 1)
+        for i in range(a.count):
+            print(a[i])
+        print(f"count = {a.count}")
+        print(f"capacity = {a.capacity}")
+        # self.assertListEqual(nodes, found)
+
     def test_delete(self):
         t = [1] * 2 + [2] * 16
         a = self.make_list(*t)
@@ -110,6 +120,17 @@ class TestLinkedList(TestCase):
         a = self.make_list(*t)
         for x in range(3):
             a.delete(0)
+
+        for i in range(a.count):
+            print(a[i])
+        print(f"count = {a.count}")
+        print(f"capacity = {a.capacity}")
+        # self.assertListEqual(nodes, found)
+
+    def test_delete2(self):
+        t = [2] * 16
+        a = self.make_list(*t)
+        a.delete(17)
 
         for i in range(a.count):
             print(a[i])
