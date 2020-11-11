@@ -150,3 +150,14 @@ class TestLinkedList(TestCase):
         print(f"count = {a.count}")
         print(f"capacity = {a.capacity}")
         # self.assertListEqual(nodes, found)
+
+    def test_delete3(self):
+        t = [0] + [2] * 18 + [1]*2
+        a = self.make_list(*t)
+        a.delete(20)
+
+        for i in range(a.count):
+            print(a[i])
+        print(f"count = {a.count}")
+        print(f"capacity = {a.capacity}")
+        # self.assertListEqual(nodes, found)
