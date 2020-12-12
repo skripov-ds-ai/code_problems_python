@@ -9,9 +9,8 @@ class DummyNode:
 
 class Node(DummyNode):
     def __init__(self, v):
+        super().__init__()
         self.value = v
-        self.prev = None
-        self.next = None
 
     def __bool__(self):
         return True
