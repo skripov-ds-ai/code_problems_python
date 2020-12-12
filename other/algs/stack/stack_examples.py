@@ -14,15 +14,20 @@ def right_parentheses_sequence(s, ps):
         if c in ps:
             stack.push(c)
         if c in ps_inv:
-            if ps[stack.peek()] != c:
+            if stack.size() == 0:
                 ok = False
+                break
             else:
-                stack.pop()
+                if ps[stack.peek()] != c:
+                    ok = False
+                    break
+                else:
+                    stack.pop()
     if stack.size() > 0:
         ok = False
     return ok
 
 
-s1 = "(())"
+s1 = "))"
 r1 = right_parentheses_sequence(s1, parentheses)
 print(r1)
