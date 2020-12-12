@@ -50,9 +50,7 @@ class DynArray:
         # добавляем объект itm в позицию i, начиная с 0
 
     def delete(self, i):
-        if i < 0 or i > self.count:
-            raise IndexError('Index is out of bounds')
-        if not self.count:
+        if not self.count or i < 0 or i > self.count:
             raise IndexError('Index is out of bounds')
 
         for j in range(i, self.count - 1):
