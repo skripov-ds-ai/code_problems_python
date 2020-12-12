@@ -4,6 +4,10 @@ parentheses = {
     '[': ']',
     '{': '}',
 }
+operations = {
+    '+': lambda x, y: x + y,
+    '*': lambda x, y: x * y,
+}
 
 
 def right_parentheses_sequence(s, ps):
@@ -28,6 +32,19 @@ def right_parentheses_sequence(s, ps):
     return ok
 
 
-s1 = "))"
-r1 = right_parentheses_sequence(s1, parentheses)
-print(r1)
+# s1 = "()()"
+# r1 = right_parentheses_sequence(s1, parentheses)
+# print(r1)
+
+
+def postfix(s, ops, ps):
+    # ps_inv = {v: k for k, v in ps.items()}
+    # s1 = Stack()
+    # s2 = Stack()
+    # for c in s:
+    #     if c in ps:
+    #
+    #     # if c.isdigit():
+    #     #     s1.
+    pass
+
