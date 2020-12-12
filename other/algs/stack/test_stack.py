@@ -67,3 +67,13 @@ class TestStack(TestCase):
         print(a.size())
         print("nodes\n")
         a.stack.print_all_nodes()
+
+    def test_push(self):
+        a = self.make_stack(42)
+        print(a.size())
+        print("nodes\n")
+        a.stack.print_all_nodes()
+        a.push(138)
+        print("nodes after\n")
+        a.stack.print_all_nodes()
+        print(f"size = {a.size()}")
