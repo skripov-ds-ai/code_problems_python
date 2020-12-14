@@ -92,4 +92,4 @@ def eval_postfix(s, ops):
             stack2.stack.print_all_nodes()
 
 
-eval_postfix("1 1 + 1 * =", operations)
+eval_postfix("8 2 + 5 * 9 + =", operations)
