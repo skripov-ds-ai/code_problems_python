@@ -13,23 +13,20 @@ operations = {
 def right_parentheses_sequence(s, ps):
     ps_inv = {v: k for k, v in ps.items()}
     stack = Stack()
-    ok = True
     for c in s:
         if c in ps:
             stack.push(c)
         if c in ps_inv:
             if stack.size() == 0:
-                ok = False
-                break
+                return False
             else:
                 if ps[stack.peek()] != c:
-                    ok = False
-                    break
+                    return False
                 else:
                     stack.pop()
     if stack.size() > 0:
-        ok = False
-    return ok
+        return False
+    return True
 
 
 # s1 = "()()"
