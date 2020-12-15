@@ -30,26 +30,9 @@ def right_parentheses_sequence(s, ps):
     return True
 
 
-# s1 = "()()"
-# r1 = right_parentheses_sequence(s1, parentheses)
-# print(r1)
-
-
-def postfix(s, ops, ps):
-    # ps_inv = {v: k for k, v in ps.items()}
-    # s1 = Stack()
-    # s2 = Stack()
-    # for c in s:
-    #     if c in ps:
-    #
-    #     # if c.isdigit():
-    #     #     s1.
-    pass
-
-
 def eval_postfix(s, ops):
     eq = '='
-    stack1, stack2 = Stack(), Stack()
+    stack2 = Stack()
     # it is valid if number base is 10
     # what to do with unary/n-ary operations?
     base = 10
@@ -63,17 +46,17 @@ def eval_postfix(s, ops):
             prev_zero = not bool(int(c))
         elif c in whitespace:
             if prev_zero or num > 0:
-                stack1.push(num)
+                stack2.push(num)
             num = 0
             prev_zero = False
         elif c in ops:
-            stack1.push(c)
+            stack2.push(c)
         elif c == eq:
-            stack1.push(c)
-    tmp = Stack()
-    while stack1.size() > 0:
-        tmp.push(stack1.pop())
-    stack1 = tmp
+            stack2.push(c)
+    stack1 = Stack()
+    while stack2.size() > 0:
+        stack1.push(stack2.pop())
+    # stack1 = stack2
     # stack1.stack.print_all_nodes()
     # print()
 
@@ -92,4 +75,54 @@ def eval_postfix(s, ops):
             stack2.stack.print_all_nodes()
 
 
-eval_postfix("8 2 + 5 * 9 + =", operations)
+def eval_postfix_simple(s):
+    stack2 = Stack()
+    num = 0
+    prev_zero = False
+    for c in s:
+        if c.isdigit():
+            num *= 10
+            num += int(c)
+            prev_zero = not bool(int(c))
+        elif c == ' ':
+            if prev_zero or num > 0:
+                stack2.push(num)
+            num = 0
+            prev_zero = False
+        elif c == '=' or c == '+' or c == '*':
+            stack2.push(c)
+    stack1 = Stack()
+    while stack2.size() > 0:
+        stack1.push(stack2.pop())
+
+    while stack1.size() > 0:
+        elem = stack1.pop()
+        if elem == '+' or elem == '*':
+            a, b = stack2.pop(), stack2.pop()
+            c = a + b if elem == '+' else a * b
+            stack2.push(c)
+        elif elem == '=':
+            stack2.stack.print_all_nodes()
+        else:
+            stack2.push(elem)
+
+
+def right_parentheses_sequence_simple(s):
+    stack = Stack()
+    for c in s:
+        if c == '(':
+            stack.push(c)
+        if c == ')':
+            if stack.size() == 0:
+                return False
+            else:
+                if stack.peek() != '(':
+                    return False
+                else:
+                    stack.pop()
+    if stack.size() > 0:
+        return False
+    return True
+
+
+eval_postfix_simple("8 2 + 5 * 9 + =", operations)
