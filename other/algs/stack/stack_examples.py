@@ -125,4 +125,4 @@ def right_parentheses_sequence_simple(s):
     return True
 
 
-eval_postfix_simple("8 2 + 5 * 9 + =", operations)
+eval_postfix_simple("8 2 + 5 * 9 + =")
