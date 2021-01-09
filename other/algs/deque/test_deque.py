@@ -30,9 +30,16 @@ class TestDeque(TestCase):
     def test_insert_front(self):
         q = Deque()
         q.addFront(42)
-        q.addFront(0)
+        q.addFront(1)
         item = q.removeFront()
-        self.assertEqual(item, 0)
+        self.assertEqual(item, 1)
+
+    def test_insert_tail(self):
+        q = Deque()
+        q.addTail(42)
+        q.addTail(1)
+        item = q.removeTail()
+        self.assertEqual(item, 1)
 
     def test_insert_tail(self):
         q = Deque()
