@@ -169,4 +169,4 @@ class OrderedStringList(OrderedList):
 
     def compare(self, v1, v2):
         # переопределённая версия для строк
-        return super().compare(v1.strip(), v2.strip())
+        return super(OrderedStringList, self).compare(v1.strip(), v2.strip())
