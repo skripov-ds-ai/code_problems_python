@@ -77,4 +77,8 @@ class TestOrderedList(TestCase):
             node.next.value
         # TODO: there are a series of problems!!
 
+    def test_empty(self):
+        l = OrderedList(asc=True)
+        self.assertEqual(l.len(), 0)
+
 
