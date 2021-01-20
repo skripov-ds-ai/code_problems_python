@@ -39,7 +39,6 @@ class TestOrderedList(TestCase):
 
     def test_find(self):
         l = self.make_list(True, 0, 1, 3, 2)
-        l.print_all_reverse_nodes()
         node = l.find(2)
         self.assertIsNotNone(node)
         self.assertEqual(node.value, 2)
@@ -75,10 +74,31 @@ class TestOrderedList(TestCase):
         self.assertEqual(node.prev.value, 1)
         with self.assertRaises(AttributeError):
             node.next.value
-        # TODO: there are a series of problems!!
 
     def test_empty(self):
         l = OrderedList(asc=True)
+        self.assertEqual(l.len(), 0)
+
+    def test_delete(self):
+        l = self.make_list(True, 0, 1, 5, 4, 3, 2)
+        self.assertEqual(l.len(), 6)
+        l.delete(0)
+        self.assertEqual(l.len(), 5)
+        node = l.find(0)
+        self.assertIsNone(node)
+
+    def test_delete(self):
+        l = self.make_list(False, 0, 1, 5, 4, 3, 2)
+        self.assertEqual(l.len(), 6)
+        l.delete(0)
+        self.assertEqual(l.len(), 5)
+        node = l.find(0)
+        self.assertIsNone(node)
+
+    def test_delete_empty(self):
+        l = self.make_list(True)
+        self.assertEqual(l.len(), 0)
+        l.delete(0)
         self.assertEqual(l.len(), 0)
 
 

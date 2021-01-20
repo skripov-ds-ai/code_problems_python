@@ -1,19 +1,8 @@
-class DummyNode:
-    def __init__(self):
+class Node:
+    def __init__(self, v):
+        self.value = v
         self.prev = None
         self.next = None
-
-    def __bool__(self):
-        return False
-
-
-class Node(DummyNode):
-    def __init__(self, v):
-        super().__init__()
-        self.value = v
-
-    def __bool__(self):
-        return True
 
 
 class OrderedList:
@@ -21,25 +10,37 @@ class OrderedList:
         self.clean(asc)
 
     def __add_in_tail(self, item):
-        self.tail.prev.next = item
-        item.prev = self.tail.prev
-        item.next = self.tail
-        self.tail.prev = item
+        if self.head is None:
+            self.head = item
+            item.prev = None
+            item.next = None
+        else:
+            self.tail.next = item
+            item.prev = self.tail
+        self.tail = item
         self._length += 1
 
     def add_in_tail(self, item):
         item = Node(item)
-        self.tail.prev.next = item
-        item.prev = self.tail.prev
-        item.next = self.tail
-        self.tail.prev = item
+        if self.head is None:
+            self.head = item
+            item.prev = None
+            item.next = None
+        else:
+            self.tail.next = item
+            item.prev = self.tail
+        self.tail = item
         self._length += 1
 
     def __add_in_head(self, newNode):
-        self.head.next.prev = newNode
-        newNode.next = self.head.next
-        newNode.prev = self.head
-        self.head.next = newNode
+        if self.tail is None:
+            self.tail = newNode
+            newNode.prev = None
+            newNode.next = None
+        else:
+            self.head.prev = newNode
+            newNode.next = self.tail
+        self.head = newNode
         self._length += 1
         # здесь будет ваш код
 
@@ -60,19 +61,18 @@ class OrderedList:
             self.__add_in_tail(node)
             return
 
-        cmp2 = self.compare(node.value, self.tail.prev.value)
+        cmp2 = self.compare(node.value, self.tail.value)
         if cmp2 == 1 and self.__ascending or cmp2 == -1 and not self.__ascending:
             self.__add_in_tail(node)
             return
-        cmp1 = self.compare(node.value, self.head.next.value)
+        cmp1 = self.compare(node.value, self.head.value)
         if cmp1 == -1 and self.__ascending or cmp1 == 1 and not self.__ascending:
             self.__add_in_head(node)
             return
 
-
         self._length += 1
-        tmpNode = self.head.next
-        while bool(tmpNode):
+        tmpNode = self.head
+        while tmpNode:
             cmp = self.compare(node.value, tmpNode.value)
             if cmp == -1 and self.__ascending or cmp == 1 and not self.__ascending:
                 node.prev = tmpNode.prev
@@ -87,16 +87,16 @@ class OrderedList:
 
     def find(self, val):
         node = Node(val)
-        cmp1 = self.compare(node.value, self.head.next.value)
+        cmp1 = self.compare(node.value, self.head.value)
         if cmp1 == -1 and self.__ascending or cmp1 == 1 and not self.__ascending:
             return None
 
-        cmp2 = self.compare(node.value, self.tail.prev.value)
+        cmp2 = self.compare(node.value, self.tail.value)
         if cmp2 == 1 and self.__ascending or cmp2 == -1 and not self.__ascending:
             return None
 
-        tmpNode = self.head.next
-        while bool(tmpNode):
+        tmpNode = self.head
+        while tmpNode:
             cmp = self.compare(node.value, tmpNode.value)
             if cmp == -1 and self.__ascending or cmp == 1 and not self.__ascending:
                 return None
@@ -107,34 +107,59 @@ class OrderedList:
         # здесь будет ваш код
 
     def delete(self, val, all=False):
-        node = self.head.next
-        prev = self.head
+        node = self.head
+        prev = None
+
         ok = True
 
-        while bool(node):
-            if bool(node) and node.value == val:
-                while bool(node) and node.value == val:
-                    node = node.next
-                    self._length -= 1
-                    node.prev = prev
-                    if not all:
-                        ok = False
-                        break
-                prev.next = node
-                node.prev = prev
-
-            if not ok:
-                break
-            prev = node
-            if node:
+        if node and node.value == val:
+            while node and node.value == val:
+                self._length -= 1
                 node = node.next
+                if node:
+                    node.prev = prev
+                if not all:
+                    ok = False
+                    self.head = node
+                    break
+            prev = node
+            self.head = node
+
+        if ok:
+            while node:
+                if node.value == val:
+                    while node and node.value == val:
+                        node = node.next
+                        self._length -= 1
+                        if node:
+                            node.prev = prev
+                        if not all:
+                            ok = False
+                            break
+                    prev.next = node
+                    if node:
+                        node.prev = prev
+
+                if not ok:
+                    break
+                prev = node
+                if node:
+                    node = node.next
+
+        node = self.head
+        while node:
+            if not node.next:
+                self.tail = node
+            node = node.next
+        if self._length == 0:
+            self.tail = None
+        if not self.head:
+            self.tail = None
         # здесь будет ваш код
 
     def clean(self, asc):
-        self.head = DummyNode()
-        self.tail = DummyNode()
-        self.head.next = self.tail
-        self.tail.prev = self.head
+        self.head = None
+        self.tail = None
         self._length = 0
         self.__ascending = asc
 
@@ -151,14 +176,14 @@ class OrderedList:
         return r
 
     def print_all_nodes(self):
-        node = self.head.next
-        while bool(node):
+        node = self.head
+        while node:
             print(node.value)
             node = node.next
 
     def print_all_reverse_nodes(self):
-        node = self.tail.prev
-        while bool(node):
+        node = self.tail
+        while node:
             print(node.value)
             node = node.prev
 
