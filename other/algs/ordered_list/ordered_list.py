@@ -39,7 +39,7 @@ class OrderedList:
             newNode.next = None
         else:
             self.head.prev = newNode
-            newNode.next = self.tail
+            newNode.next = self.head
         self.head = newNode
         self._length += 1
         # здесь будет ваш код
@@ -106,7 +106,7 @@ class OrderedList:
         return None
         # здесь будет ваш код
 
-    def delete(self, val, all=False):
+    def delete(self, val):
         node = self.head
         prev = None
 
@@ -118,7 +118,6 @@ class OrderedList:
                 node = node.next
                 if node:
                     node.prev = prev
-                if not all:
                     ok = False
                     self.head = node
                     break
@@ -133,7 +132,6 @@ class OrderedList:
                         self._length -= 1
                         if node:
                             node.prev = prev
-                        if not all:
                             ok = False
                             break
                     prev.next = node
