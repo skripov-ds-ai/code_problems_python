@@ -142,6 +142,18 @@ class TestOrderedList(TestCase):
         l.delete(65)
         # l.print_all_nodes()
         self.assertEqual(l.len(), 1)
-        # TODO: problem
+
+    def test_len_with_add_synonyms_to_head_then_delete(self):
+        l = OrderedList(True)
+        l.add(65)
+        self.assertEqual(l.len(), 1)
+        l.add(65)
+        self.assertEqual(l.len(), 2)
+        l.add(1000)
+        self.assertEqual(l.len(), 3)
+        l.delete(65)
+        self.assertEqual(l.len(), 2)
+        l.delete(65)
+        self.assertEqual(l.len(), 1)
 
 
