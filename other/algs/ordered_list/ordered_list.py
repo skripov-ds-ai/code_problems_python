@@ -62,11 +62,11 @@ class OrderedList:
             return
 
         cmp2 = self.compare(node.value, self.tail.value)
-        if cmp2 == 1 and self.__ascending or cmp2 == -1 and not self.__ascending:
+        if cmp2 >= 0 and self.__ascending or cmp2 <= 0 and not self.__ascending:
             self.__add_in_tail(node)
             return
         cmp1 = self.compare(node.value, self.head.value)
-        if cmp1 == -1 and self.__ascending or cmp1 == 1 and not self.__ascending:
+        if cmp1 <= 0 and self.__ascending or cmp1 >= 0 and not self.__ascending:
             self.__add_in_head(node)
             return
 
@@ -74,7 +74,7 @@ class OrderedList:
         tmpNode = self.head
         while tmpNode:
             cmp = self.compare(node.value, tmpNode.value)
-            if cmp == -1 and self.__ascending or cmp == 1 and not self.__ascending:
+            if cmp <= 0 and self.__ascending or cmp >= 0 and not self.__ascending:
                 node.prev = tmpNode.prev
                 node.next = tmpNode
                 tmpNode.prev.next = node

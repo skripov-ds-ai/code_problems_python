@@ -65,9 +65,6 @@ class TestOrderedList(TestCase):
 
     def test_find_last_desc(self):
         l = self.make_list(False, 0, 1, 3, 2)
-        l.print_all_reverse_nodes()
-        print("\n$\n")
-        l.print_all_nodes()
         node = l.find(0)
         self.assertIsNotNone(node)
         self.assertEqual(node.value, 0)
@@ -101,7 +98,7 @@ class TestOrderedList(TestCase):
         l.delete(0)
         self.assertEqual(l.len(), 0)
 
-    def test_len_again(self):
+    def test_len_with_delete_head(self):
         l = OrderedList(True)
         l.add(65)
         self.assertEqual(l.head.value, 65)
@@ -129,5 +126,22 @@ class TestOrderedList(TestCase):
         self.assertEqual(l.head.value, 1)
         self.assertEqual(l.tail.value, 1)
         self.assertEqual(l.len(), 1)
+
+    def test_len_with_delete_tail(self):
+        l = OrderedList(True)
+        l.add(65)
+        self.assertEqual(l.len(), 1)
+        l.add(65)
+        self.assertEqual(l.len(), 2)
+        l.add(0)
+        self.assertEqual(l.len(), 3)
+        l.delete(65)
+        self.assertEqual(l.len(), 2)
+        # l.print_all_nodes()
+        # l.print_all_reverse_nodes()
+        l.delete(65)
+        # l.print_all_nodes()
+        self.assertEqual(l.len(), 1)
+        # TODO: problem
 
 
