@@ -11,13 +11,16 @@ class SimpleTree:
         self._len = 1
         # корень, может быть None
 
-    def traversal(self, root):
+    def traversal(self, root, p=False):
         nodes = []
         if root:
+            if p:
+                print("traversal", root.NodeValue)
             for child in root.Children:
-                nodes.extend(
-                    self.traversal(child)
-                )
+                tmp = self.traversal(child)
+                if p:
+                    print("traversal", [x.NodeValue for x in tmp])
+                nodes.extend(tmp)
             nodes.append(root)
         return nodes
 
@@ -33,8 +36,9 @@ class SimpleTree:
         for node in nodes:
             if NodeToDelete is node and NodeToDelete is not self.Root:
                 to_del = node
-                to_del.Parent.Children.delete(to_del)
-                to_del.Parent.Children.extend(to_del.Children)
+                t = to_del.Parent.Children
+                to_del.Parent.Children.remove(to_del)
+                # to_del.Parent.Children.extend(to_del.Children)
                 self._len -= 1
                 break
         # ваш код удаления существующего узла NodeToDelete
@@ -56,6 +60,8 @@ class SimpleTree:
         # ваш код перемещения узла вместе с его поддеревом --
         # в качестве дочернего для узла NewParent
         NewParent.Children.append(OriginalNode)
+        t = OriginalNode.Parent.Children
+        t.remove(OriginalNode)
         OriginalNode.Parent = NewParent
 
     def Count(self):
