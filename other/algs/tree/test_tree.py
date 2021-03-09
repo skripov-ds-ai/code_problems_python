@@ -44,15 +44,14 @@ class TestTree(TestCase):
         self.assertEqual(t.Count(), len(nodes))
 
     def test_LeafCount(self):
-        # TODO: fix
         t, nodes = self.make_tree()
-        print(nodes[1].NodeValue, nodes[2].NodeValue)
         t.MoveNode(nodes[1], nodes[2])
         self.assertEqual(len(nodes[2].Children), 1)
-        print(nodes)
-        nodes = t.traversal(t.Root, True)
-        print()
-        print([x.NodeValue for x in t.Root.Children[0].Children[0].Chidlren])
+        self.assertEqual(t.LeafCount(), 2)
+
+    def test_LeafCount_more(self):
+        t, nodes = self.make_tree()
+        t.MoveNode(nodes[-1], nodes[1])
         self.assertEqual(t.LeafCount(), 3)
 
 
