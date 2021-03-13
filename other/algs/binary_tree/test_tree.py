@@ -56,5 +56,24 @@ class TestTree(TestCase):
         self.assertTrue(res.NodeHasKey)
         self.assertEqual(res.Node, root.RightChild)
 
+    def test_Delete(self):
+        root = BSTNode(5, 5, None)
+        t = BST(root)
+        t.AddKeyValue(4, 4)
+        res = t.FindNodeByKey(5)
+        self.assertTrue(res.NodeHasKey)
+        self.assertEqual(res.Node, root)
+
+        res = t.FindNodeByKey(4)
+        self.assertTrue(res.NodeHasKey)
+        self.assertEqual(res.Node, root.LeftChild)
+
+        t.DeleteNodeByKey(4)
+        res = t.FindNodeByKey(4)
+        # print(t.Root.LeftChild.NodeKey)
+        self.assertFalse(res.NodeHasKey)
+
+
+
 
 

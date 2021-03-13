@@ -22,133 +22,86 @@ class BST:
         self.Root = node  # корень дерева, или None
         self._len = 1
 
-    def find(self, root, key, left):
-        # if root is None:
-        #     t = BSTFind()
-        #     t.Node = root
-        #     t.ToLeft = left
-        #     return t
-        if root.NodeKey == key:
-            t = BSTFind()
-            t.Node = root
-            t.NodeHasKey = True
-            t.ToLeft = left
-            return t
-        if root.NodeKey > key:
-            if root.LeftChild is None:
-                t = BSTFind()
-                t.Node = root
-                t.ToLeft = True
-                return t
-            return self.find(root.LeftChild, key, True)
-        if root.RightChild is None:
-            t = BSTFind()
-            t.Node = root
-            t.ToLeft = False
-            return t
-        return self.find(root.RightChild, key, False)
-
     def FindNodeByKey(self, key):
+        t = BSTFind()
+        t.Node = self.Root
+        if t.Node.NodeKey == key:
+            t.NodeHasKey = True
+            return t
+        while t.Node.NodeKey != key:
+            if key >= t.Node.NodeKey:
+                if not t.Node.RightChild:
+                    break
+                t.Node = t.Node.RightChild
+            else:
+                if not t.Node.LeftChild:
+                    t.ToLeft = True
+                    break
+                t.Node = t.Node.LeftChild
+        t.NodeHasKey = t.Node.NodeKey == key
+        return t
         # ищем в дереве узел и сопутствующую информацию по ключу
-        return self.find(self.Root, key, False)
         # возвращает BSTFind
 
     def AddKeyValue(self, key, val):
+        t = self.FindNodeByKey(key)
+        new = BSTNode(key, val, None)
+        if not t.NodeHasKey:
+            self._len += 1
+            new.Parent = t.Node
+            if t.ToLeft:
+                t.Node.LeftChild = new
+            else:
+                t.Node.RightChild = new
+            return True
+        return False
         # добавляем ключ-значение в дерево
-        t = self.find(self.Root, key, False)
-        if t.NodeHasKey:
-            return False
-        node = BSTNode(key, val, t.Node)
-        # node.Parent = t.Node
-        if t.ToLeft:
-            t.Node.LeftChild = node
-        else:
-            t.Node.RightChild = node
-        self._len += 1
-        return True
         # если ключ уже есть
 
-    def find_min_max(self, root, mx=True):
-        if mx:
-            if root.RightChild:
-                return self.find_min_max(root.RightChild, mx=mx)
-            t = BSTFind()
-            t.Node = root
-            t.NodeHasKey = True
-            return t
-        if root.LeftChild:
-            return self.find_min_max(root.LeftChild, mx=mx)
-        t = BSTFind()
-        t.Node = root
-        t.NodeHasKey = True
-        return t
-
     def FinMinMax(self, FromNode, FindMax):
-        # ищем максимальный/минимальный ключ в поддереве
-        # возвращается объект типа BSTNode
-        return self.find_min_max(FromNode, FindMax)
-
-    def find_successor(self, root):
-        if root.RightChild:
-            node = root.RightChild
+        node = FromNode
+        if FindMax:
+            while node.RightChild:
+                node = node.RightChild
+        else:
             while node.LeftChild:
                 node = node.LeftChild
-            return node, True
-        return root.LeftChild, False
+        return node
+        # ищем максимальный/минимальный ключ в поддереве
+        # возвращается объект типа BSTNode
 
-    def delete_node(self, root, key):
-        parent = None
-        curr = root
-
-        while curr and curr.NodeKey != key:
-            parent = curr
-            if key < curr.NodeKey:
-                curr = curr.LeftChild
+    def DeleteNodeByKey(self, key, real=True):
+        t = self.FindNodeByKey(key)
+        if t.NodeHasKey:
+            if real:
+                self._len -= 1
+            node = t.Node
+            tmp = None
+            if node.LeftChild and node.RightChild is None:
+                tmp = node.LeftChild
+            elif node.LeftChild is None and node.RightChild:
+                tmp = node.RightChild
+            elif node.LeftChild and node.RightChild:
+                successor = self.FinMinMax(node.RightChild, False)
+                self.DeleteNodeByKey(successor.NodeKey, False)
+                successor.LeftChild = node.LeftChild
+                successor.RightChild = node.RightChild
+                tmp = successor
+            if node is self.Root:
+                self.Root = tmp
+                if tmp:
+                    self.Root.Parent = None
             else:
-                curr = curr.RightChild
-
-        if curr is None:
-            return root
-
-        if curr.LeftChild is None and curr.RightChild is None:
-            if curr != root:
-                if parent.LeftChild == curr:
-                    parent.LeftChild = None
+                if node.Parent.LeftChild is node:
+                    node.Parent.LeftChild = tmp
                 else:
-                    parent.RightChild = None
-            else:
-                root = None
-        elif curr.LeftChild and curr.RightChild:
-            successor = self.FinMinMax(curr.RightChild, False)
-            key = successor.Node.NodeKey
-            value = successor.Node.NodeValue
-            self.delete_node(successor.Node, key)
-            curr.NodeKey = key
-            curr.NodeValue = value
-        else:
-            if curr.LeftChild:
-                child = curr.LeftChild
-            else:
-                child = curr.RightChild
-            if curr != root:
-                if curr == parent.LeftChild:
-                    parent.LeftChild = child
-                else:
-                    parent.RightChild = child
-                child.Parent = parent
-            else:
-                root = child
-                child.Parent = None
-        return root
-
-    def DeleteNodeByKey(self, key):
+                    node.Parent.RightChild = tmp
+                if tmp:
+                    tmp.Parent = node.Parent
+            return True
+        return False
         # удаляем узел по ключу
-        t = self.find(self.Root, key, False)
-        if not t.NodeHasKey:
-            return False
-        self._len -= 1
-        self.delete_node(self.Root, key)
-        return True  # если узел не найден
+        # если узел не найден
 
     def Count(self):
         return self._len
