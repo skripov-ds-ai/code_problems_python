@@ -59,6 +59,7 @@ class BST:
         if t.NodeHasKey:
             return False
         node = BSTNode(key, val, t.Node)
+        node.Parent = t
         if t.ToLeft:
             t.Node.LeftChild = node
         else:
@@ -95,25 +96,58 @@ class BST:
             return node, True
         return root.LeftChild, False
 
+    def delete_node(self, root, key):
+        parent = None
+        curr = root
+
+        while curr and curr.NodeKey != key:
+            parent = curr
+            if key < curr.NodeKey:
+                curr = curr.LeftChild
+            else:
+                curr = curr.RightChild
+
+        if curr is None:
+            return root
+
+        if curr.LeftChild is None and curr.RightChild is None:
+            if curr != root:
+                if parent.LeftChild == curr:
+                    parent.LeftChild = None
+                else:
+                    parent.RightChild = None
+            else:
+                root = None
+        elif curr.LeftChild and curr.RightChild:
+            successor = self.FinMinMax(curr.RightChild, False)
+            key = successor.Node.NodeKey
+            value = successor.Node.NodeValue
+            self.delete_node(successor.Node, key)
+            curr.NodeKey = key
+            curr.NodeValue = value
+        else:
+            if curr.LeftChild:
+                child = curr.LeftChild
+            else:
+                child = curr.RightChild
+            if curr != root:
+                if curr == parent.LeftChild:
+                    parent.LeftChild = child
+                else:
+                    parent.RightChild = child
+                child.Parent = parent
+            else:
+                root = child
+                child.Parent = None
+        return root
+
     def DeleteNodeByKey(self, key):
         # удаляем узел по ключу
         t = self.find(self.Root, key, False)
         if not t.NodeHasKey:
             return False
         self._len -= 1
-        # TODO: successor find
-        # successor, right = self.find_successor(t.Node)
-        # if successor:
-        #     if not right:
-        #         t.Node = successor
-        #     else:
-        #         t.Node.NodeKey = successor.NodeKey
-        #         t.Node.NodeValue = successor.NodeValue
-        #         # TODO
-        # else:
-        #     t.Node.Parent.
-
-
+        self.delete_node(self.Root, key)
         return True  # если узел не найден
 
     def Count(self):
