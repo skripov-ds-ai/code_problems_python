@@ -59,7 +59,7 @@ class BST:
         if t.NodeHasKey:
             return False
         node = BSTNode(key, val, t.Node)
-        node.Parent = t
+        # node.Parent = t.Node
         if t.ToLeft:
             t.Node.LeftChild = node
         else:
