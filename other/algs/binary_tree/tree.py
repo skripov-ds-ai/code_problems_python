@@ -76,7 +76,7 @@ class BST:
 
     def DeleteNodeByKey(self, key, real=True):
         t = self.FindNodeByKey(key)
-        if t.NodeHasKey:
+        if t.Node and t.NodeHasKey:
             if real:
                 self._len -= 1
             node = t.Node
