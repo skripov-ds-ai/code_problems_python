@@ -24,21 +24,25 @@ class BST:
 
     def FindNodeByKey(self, key):
         t = BSTFind()
-        t.Node = self.Root
-        if t.Node and t.Node.NodeKey == key:
-            t.NodeHasKey = True
-            return t
-        while t.Node.NodeKey != key:
-            if key >= t.Node.NodeKey:
-                if not t.Node.RightChild:
-                    break
-                t.Node = t.Node.RightChild
+        curr = self.Root
+        while curr:
+            if curr.NodeKey == key:
+                t.Node = curr
+                t.NodeHasKey = True
+                curr = None
+            elif curr.NodeKey < key:
+                if curr.RightChild:
+                    curr = curr.RightChild
+                else:
+                    t.Node = curr
+                    curr = None
             else:
-                if not t.Node.LeftChild:
+                if curr.LeftChild:
+                    curr = curr.LeftChild
+                else:
+                    t.Node = curr
                     t.ToLeft = True
-                    break
-                t.Node = t.Node.LeftChild
-        t.NodeHasKey = t.Node.NodeKey == key
+                    curr = None
         return t
         # ищем в дереве узел и сопутствующую информацию по ключу
         # возвращает BSTFind
@@ -46,7 +50,7 @@ class BST:
     def AddKeyValue(self, key, val):
         t = self.FindNodeByKey(key)
         new = BSTNode(key, val, None)
-        if not t.Node:
+        if t.Node is None:
             self.Root = new
             self._len += 1
             return True
