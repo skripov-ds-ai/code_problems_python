@@ -25,7 +25,7 @@ class BST:
     def FindNodeByKey(self, key):
         t = BSTFind()
         t.Node = self.Root
-        if t.Node.NodeKey == key:
+        if t.Node and t.Node.NodeKey == key:
             t.NodeHasKey = True
             return t
         while t.Node.NodeKey != key:
@@ -46,6 +46,10 @@ class BST:
     def AddKeyValue(self, key, val):
         t = self.FindNodeByKey(key)
         new = BSTNode(key, val, None)
+        if not t.Node:
+            self.Root = new
+            self._len += 1
+            return True
         if not t.NodeHasKey:
             self._len += 1
             new.Parent = t.Node
