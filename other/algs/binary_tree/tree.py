@@ -147,7 +147,7 @@ class BST:
         q = [root]
         nodes = [root]
         while q:
-            node = q.pop()
+            node = q.pop(0)
             if node.LeftChild:
                 nodes.append(node.LeftChild)
                 q.append(node.LeftChild)
