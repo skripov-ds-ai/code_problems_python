@@ -114,3 +114,52 @@ class BST:
     def Count(self):
         return self._len
         # количество узлов в дереве
+
+    def DeepAllNodes(self, mode):
+        return self.deep(self.Root, mode)
+
+    def deep(self, root, mode):
+        if not root:
+            return []
+        nodes = []
+        left = self.deep(root.LeftChild, mode)
+        right = self.deep(root.RightChild, mode)
+        if mode == 0:
+            nodes.extend(left)
+            nodes.append(root)
+            nodes.extend(right)
+        elif mode == 1:
+            nodes.extend(left)
+            nodes.extend(right)
+            nodes.append(root)
+        else:
+            nodes.append(root)
+            nodes.extend(left)
+            nodes.extend(right)
+        return nodes
+
+    def WideAllNodes(self):
+        return self.wide(self.Root)
+
+    def wide(self, root):
+        if not root:
+            return []
+        q = [root]
+        nodes = [root]
+        while q:
+            node = q.pop()
+            if node.LeftChild:
+                nodes.append(node.LeftChild)
+                q.append(node.LeftChild)
+            if node.RightChild:
+                nodes.append(node.RightChild)
+                q.append(node.RightChild)
+        return nodes
+    #     if not root:
+    #         return []
+    #     nodes = [root]
+    #     if root.LeftChild:
+    #         nodes.extend(self.wide(root.LeftChild))
+    #     if root.RightChild:
+    #         nodes.extend(self.wide(root.LeftChild))
+    #     return nodes

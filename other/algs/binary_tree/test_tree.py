@@ -73,6 +73,46 @@ class TestTree(TestCase):
         # print(t.Root.LeftChild.NodeKey)
         self.assertFalse(res.NodeHasKey)
 
+    def test_Wide(self):
+        root = BSTNode(5, 5, None)
+        t = BST(root)
+        t.AddKeyValue(4, 4)
+        t.AddKeyValue(3, 3)
+        t.AddKeyValue(9, 9)
+        nodes = [root, root.LeftChild, root.RightChild, root.LeftChild.LeftChild]
+        wide = t.WideAllNodes()
+        self.assertEqual(wide, nodes)
+
+    def test_Deep0(self):
+        root = BSTNode(5, 5, None)
+        t = BST(root)
+        t.AddKeyValue(4, 4)
+        t.AddKeyValue(3, 3)
+        t.AddKeyValue(9, 9)
+        nodes = [root.LeftChild.LeftChild, root.LeftChild, root, root.RightChild]
+        deep = t.DeepAllNodes(0)
+        self.assertEqual(deep, nodes)
+
+    def test_Deep1(self):
+        root = BSTNode(5, 5, None)
+        t = BST(root)
+        t.AddKeyValue(4, 4)
+        t.AddKeyValue(3, 3)
+        t.AddKeyValue(9, 9)
+        nodes = [root.LeftChild.LeftChild, root.LeftChild, root.RightChild, root]
+        deep = t.DeepAllNodes(1)
+        self.assertEqual(deep, nodes)
+
+    def test_Deep2(self):
+        root = BSTNode(5, 5, None)
+        t = BST(root)
+        t.AddKeyValue(4, 4)
+        t.AddKeyValue(3, 3)
+        t.AddKeyValue(9, 9)
+        nodes = [root, root.LeftChild, root.LeftChild.LeftChild, root.RightChild]
+        deep = t.DeepAllNodes(2)
+        self.assertEqual(deep, nodes)
+
 
 
 
