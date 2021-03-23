@@ -146,7 +146,7 @@ class BST:
             return []
         q = [root]
         nodes = [root]
-        while q:
+        while len(q) > 0:
             node = q.pop(0)
             if node.LeftChild:
                 nodes.append(node.LeftChild)
