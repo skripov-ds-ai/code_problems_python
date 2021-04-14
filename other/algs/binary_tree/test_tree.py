@@ -112,8 +112,3 @@ class TestTree(TestCase):
         nodes = [root, root.LeftChild, root.LeftChild.LeftChild, root.RightChild]
         deep = t.DeepAllNodes(2)
         self.assertEqual(deep, nodes)
-
-
-
-
-
