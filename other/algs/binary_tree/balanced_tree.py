@@ -165,5 +165,5 @@ class BalancedBST:
         return ok, max(l_height, r_height) + 1
 
     def IsBalanced(self, root_node):
-        return self.is_balanced_subtree(root_node)
+        return self.is_balanced_subtree(root_node)[0]
         # сбалансировано ли дерево с корнем root_node
