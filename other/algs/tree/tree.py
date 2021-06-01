@@ -76,3 +76,31 @@ class SimpleTree:
             if len(n.Children) == 0:
                 num += 1
         return num
+
+    def recursive_even_trees(self, parent=None):
+        res = []
+        if not parent:
+            parent = self.Root
+        for child in parent.Children:
+            size = len(self.traversal(child)) + 1
+            if size % 2 == 0:
+                res.append(parent)
+                res.append(child)
+                if size > 2:
+                    for grandchild in child.Children:
+                        res.extend(
+                            self.recursive_even_trees(grandchild)
+                        )
+            elif size > 2:
+                size = len(child.Children)
+                for grandchild in child.Children:
+                    if size > 0:
+                        res.append(child)
+                        res.append(grandchild)
+                    res.extend(
+                        self.recursive_even_trees(grandchild)
+                    )
+        return res
+
+    def EvenTrees(self):
+        return self.recursive_even_trees()
