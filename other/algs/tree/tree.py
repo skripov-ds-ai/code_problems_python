@@ -14,12 +14,12 @@ class SimpleTree:
     def traversal(self, root, p=False):
         nodes = []
         if root:
-            if p:
-                print("traversal", root.NodeValue)
+            # if p:
+            #     print("traversal", root.NodeValue)
             for child in root.Children:
                 tmp = self.traversal(child)
-                if p:
-                    print("traversal", [x.NodeValue for x in tmp])
+                # if p:
+                #     print("traversal", [x.NodeValue for x in tmp])
                 nodes.extend(tmp)
             nodes.append(root)
         return nodes

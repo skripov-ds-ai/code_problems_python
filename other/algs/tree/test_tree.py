@@ -54,4 +54,9 @@ class TestTree(TestCase):
         t.MoveNode(nodes[-1], nodes[1])
         self.assertEqual(t.LeafCount(), 3)
 
+    def test_Even(self):
+        t, nodes = self.make_tree()
+        t.EvenTrees()
+        self.assertEqual(t.LeafCount(), 3)
+
 
