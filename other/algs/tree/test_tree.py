@@ -4,7 +4,7 @@ from other.algs.tree.tree import SimpleTree, SimpleTreeNode
 
 class TestTree(TestCase):
     def make_tree(self):
-        vals = [1, 2, 3, 5, 5]
+        vals = [1, 2, 3, 5, 5, 6, 32]
         nodes = []
         for val in vals:
             nodes.append(SimpleTreeNode(val, None))

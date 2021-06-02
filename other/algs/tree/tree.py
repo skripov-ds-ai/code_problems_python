@@ -11,15 +11,29 @@ class SimpleTree:
         self._len = 1
         # корень, может быть None
 
+    def even_traversal(self, root):
+        nodes = []
+        if not root:
+            nodes.append(self.Root)
+            root = self.Root
+        for child in root.Children:
+            nodes.append(child)
+            if len(child.Children):
+                nodes.extend(
+                    self.even_traversal(child)
+                )
+        return nodes
+
+
     def traversal(self, root, p=False):
         nodes = []
         if root:
-            # if p:
-            #     print("traversal", root.NodeValue)
+            if p:
+                print("traversal", root.NodeValue)
             for child in root.Children:
                 tmp = self.traversal(child)
-                # if p:
-                #     print("traversal", [x.NodeValue for x in tmp])
+                if p:
+                    print("traversal", [x.NodeValue for x in tmp])
                 nodes.extend(tmp)
             nodes.append(root)
         return nodes
@@ -82,7 +96,7 @@ class SimpleTree:
         if not parent:
             parent = self.Root
         for child in parent.Children:
-            size = len(self.traversal(child)) + 1
+            size = len(self.even_traversal(child)) + 1
             if size % 2 == 0:
                 res.append(parent)
                 res.append(child)
