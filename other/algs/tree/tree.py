@@ -4,26 +4,15 @@ class SimpleTreeNode:
         self.Parent = parent  # родитель или None для корня
         self.Children = []  # список дочерних узлов
 
+    def __str__(self):
+        return str(self.NodeValue)
+
 
 class SimpleTree:
     def __init__(self, root):
         self.Root = root
         self._len = 1
         # корень, может быть None
-
-    def even_traversal(self, root):
-        nodes = []
-        if not root:
-            nodes.append(self.Root)
-            root = self.Root
-        for child in root.Children:
-            nodes.append(child)
-            if len(child.Children):
-                nodes.extend(
-                    self.even_traversal(child)
-                )
-        return nodes
-
 
     def traversal(self, root, p=False):
         nodes = []
@@ -80,7 +69,8 @@ class SimpleTree:
 
     def Count(self):
         # количество всех узлов в дереве
-        return self._len
+        # return self._len
+        return self.RecursiveCount(self.Root)
 
     def LeafCount(self):
         # количество листьев в дереве
@@ -91,30 +81,24 @@ class SimpleTree:
                 num += 1
         return num
 
-    def recursive_even_trees(self, parent=None):
-        res = []
-        if not parent:
-            parent = self.Root
-        for child in parent.Children:
-            size = len(self.even_traversal(child)) + 1
-            if size % 2 == 0:
-                res.append(parent)
-                res.append(child)
-                if size > 2:
-                    for grandchild in child.Children:
-                        res.extend(
-                            self.recursive_even_trees(grandchild)
-                        )
-            elif size > 2:
-                size = len(child.Children)
-                for grandchild in child.Children:
-                    if size > 0:
-                        res.append(child)
-                        res.append(grandchild)
-                    res.extend(
-                        self.recursive_even_trees(grandchild)
-                    )
-        return res
+    def RecursiveCount(self, root):
+        if root is None:
+            return 0
+        tmp = 1
+        for child in root.Children:
+            tmp += self.RecursiveCount(child)
+        return tmp
 
     def EvenTrees(self):
-        return self.recursive_even_trees()
+        size = self.Count()
+        if size % 2 == 1 or size == 0:
+            return []
+
+        nodes = []
+        for child in self.Root.Children:
+            t = SimpleTree(child)
+            if t.Count() % 2 == 0:
+                nodes.append(self.Root)
+                nodes.append(child)
+            nodes.extend(t.EvenTrees())
+        return nodes

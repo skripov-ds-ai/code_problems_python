@@ -4,7 +4,7 @@ from other.algs.tree.tree import SimpleTree, SimpleTreeNode
 
 class TestTree(TestCase):
     def make_tree(self):
-        vals = [1, 2, 3, 5, 5, 6, 32]
+        vals = [1, 2, 3, 5, 5]
         nodes = []
         for val in vals:
             nodes.append(SimpleTreeNode(val, None))
@@ -54,9 +54,42 @@ class TestTree(TestCase):
         t.MoveNode(nodes[-1], nodes[1])
         self.assertEqual(t.LeafCount(), 3)
 
+    def test_RecursiveCount(self):
+        t, nodes = self.make_tree()
+        self.assertEqual(t.RecursiveCount(t.Root), len(nodes))
+        self.assertEqual(t.RecursiveCount(t.Root.Children[0]), 3)
+
     def test_Even(self):
         t, nodes = self.make_tree()
         t.EvenTrees()
         self.assertEqual(t.LeafCount(), 3)
 
+    def test_EvenTrees_EmptyTree(self):
+        t = SimpleTree(None)
+        res = t.EvenTrees()
+        self.assertEqual(res, [])
 
+    def test_EvenTrees_Three(self):
+        parent = SimpleTreeNode(1, None)
+        t = SimpleTree(parent)
+        t.AddChild(t.Root, SimpleTreeNode(2, t.Root))
+        t.AddChild(t.Root, SimpleTreeNode(3, t.Root))
+        t.AddChild(t.Root, SimpleTreeNode(6, t.Root))
+        t.AddChild(t.Root.Children[0], SimpleTreeNode(5, t.Root.Children[0]))
+        t.AddChild(t.Root.Children[0], SimpleTreeNode(7, t.Root.Children[0]))
+        t.AddChild(t.Root.Children[1], SimpleTreeNode(4, t.Root.Children[1]))
+        t.AddChild(t.Root.Children[2], SimpleTreeNode(8, t.Root.Children[2]))
+        t.AddChild(t.Root.Children[2].Children[0], SimpleTreeNode(9, t.Root.Children[2].Children[0]))
+        t.AddChild(t.Root.Children[2].Children[0], SimpleTreeNode(10, t.Root.Children[2].Children[0]))
+
+        res = t.EvenTrees()
+        res = [x.NodeValue for x in res]
+        self.assertEqual(res, [1, 3, 1, 6])
+
+    def test_EvenTrees_Odd(self):
+        parent = SimpleTreeNode(1, None)
+        t = SimpleTree(parent)
+        t.AddChild(t.Root, SimpleTreeNode(2, t.Root))
+        t.AddChild(t.Root, SimpleTreeNode(3, t.Root))
+        res = t.EvenTrees()
+        self.assertEqual(res, [])
