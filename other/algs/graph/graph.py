@@ -50,6 +50,8 @@ class SimpleGraph:
             return []
         if self.vertex[VFrom] is None or self.vertex[VTo] is None:
             return []
+        if VFrom == VTo:
+            return [self.vertex[VTo]]
         stack = [VFrom]
         for v in self.vertex:
             v.Hit = False

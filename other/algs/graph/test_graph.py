@@ -28,3 +28,14 @@ class TestGraph(TestCase):
 
         dfs = g.DepthFirstSearch(0, 3)
         self.assertListEqual(dfs, [])
+
+    def test_DepthFirstSearch_path_length_zero(self):
+        g = SimpleGraph(4)
+        for i in range(g.max_vertex):
+            g.AddVertex(i)
+        g.AddEdge(0, 1)
+        g.AddEdge(0, 2)
+        g.AddEdge(1, 2)
+
+        dfs = g.DepthFirstSearch(3, 3)
+        self.assertEqual(len(dfs), 1)
