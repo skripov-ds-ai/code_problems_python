@@ -78,3 +78,46 @@ class TestGraph(TestCase):
         self.assertEqual(len(bfs), 3)
         self.assertEqual(g.vertex[0], bfs[0])
         self.assertEqual(g.vertex[-1], bfs[-1])
+
+    def test_WeakVertices_3(self):
+        g = SimpleGraph(3)
+        for i in range(g.max_vertex):
+            g.AddVertex(i)
+        vs = g.WeakVertices()
+        self.assertEqual(len(vs), 3)
+
+    def test_WeakVertices_empty(self):
+        g = SimpleGraph(3)
+        for i in range(g.max_vertex):
+            g.AddVertex(i)
+        g.AddEdge(0, 1)
+        g.AddEdge(0, 2)
+        g.AddEdge(1, 2)
+
+        vs = g.WeakVertices()
+        self.assertEqual(len(vs), 0)
+
+    def test_WeakVertices_triangle_with_additional_vertice(self):
+        g = SimpleGraph(4)
+        for i in range(g.max_vertex):
+            g.AddVertex(i)
+        g.AddEdge(0, 1)
+        g.AddEdge(0, 2)
+        g.AddEdge(1, 2)
+
+        vs = g.WeakVertices()
+        self.assertEqual(len(vs), 1)
+
+    def test_WeakVertices_butterfly(self):
+        g = SimpleGraph(5)
+        for i in range(g.max_vertex):
+            g.AddVertex(i)
+        g.AddEdge(0, 1)
+        g.AddEdge(0, 2)
+        g.AddEdge(1, 2)
+        g.AddEdge(2, 3)
+        g.AddEdge(2, 4)
+        g.AddEdge(3, 4)
+
+        vs = g.WeakVertices()
+        self.assertEqual(len(vs), 0)

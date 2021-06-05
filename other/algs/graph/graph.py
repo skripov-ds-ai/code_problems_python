@@ -2,6 +2,7 @@ class Vertex:
     def __init__(self, val):
         self.Value = val
         self.Hit = False
+        self.InTriangle = False
 
 
 class SimpleGraph:
@@ -125,4 +126,25 @@ class SimpleGraph:
         result = []
         for i in path:
             result.append(self.vertex[i])
+        return result
+
+    def WeakVertices(self):
+        # возвращает список узлов вне треугольников
+        for v in self.vertex:
+            v.Hit = False
+            v.InTriangle = False
+
+        for i in range(self.max_vertex):
+            for j in range(self.max_vertex):
+                if i != j and self.m_adjacency[i][j]:
+                    for k in range(j + 1, self.max_vertex):
+                        if i != k and self.m_adjacency[i][k] and self.m_adjacency[j][k]:
+                            for x in [i, j, k]:
+                                self.vertex[x].InTriangle = True
+
+        result = []
+        for v in self.vertex:
+            if not v.InTriangle:
+                result.append(v)
+
         return result
