@@ -97,29 +97,27 @@ class SimpleGraph:
             return [self.vertex[VTo]]
 
         path = []
-        queue = [VFrom]
+        queue = [[VFrom]]
         for v in self.vertex:
             v.Hit = False
         self.vertex[VFrom].Hit = True
 
         while queue:
-            v = queue.pop(0)
-            path.append(v)
-            self.vertex[v].Hit = True
-
-            if self.m_adjacency[v][VTo]:
-                self.vertex[VTo].Hit = True
-                # queue.append(VTo)
-                path.append(VTo)
+            path = queue.pop(0)
+            v = path[-1]
+            if v == VTo:
                 break
-            all_visited = True
+            ok = False
             for i in range(self.max_vertex):
-                if v != i and self.m_adjacency[v][i]:
-                    all_visited = all_visited and self.vertex[i].Hit
-            if not all_visited:
-                for i in range(self.max_vertex):
-                    if v != i and self.m_adjacency[v][i] and not self.vertex[i].Hit:
-                        queue.append(i)
+                if i == VTo and self.m_adjacency[v][i]:
+                    ok = True
+                    path.append(i)
+                    break
+                if v != i and self.m_adjacency[v][i] and not self.vertex[i].Hit:
+                    p = path + [i]
+                    queue.append(p)
+            if ok:
+                break
 
         if not path or path and path[-1] != VTo:
             return []

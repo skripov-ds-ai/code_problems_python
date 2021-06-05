@@ -65,7 +65,6 @@ class TestGraph(TestCase):
         self.assertEqual(g.vertex[0], bfs[0])
         self.assertEqual(g.vertex[-1], bfs[-1])
 
-
     def test_BreadthFirstSearch_path_exists_len_3(self):
         g = SimpleGraph(4)
         for i in range(g.max_vertex):
@@ -76,5 +75,6 @@ class TestGraph(TestCase):
         g.AddEdge(2, 3)
 
         bfs = g.BreadthFirstSearch(0, 3)
+        self.assertEqual(len(bfs), 3)
         self.assertEqual(g.vertex[0], bfs[0])
         self.assertEqual(g.vertex[-1], bfs[-1])
