@@ -75,6 +75,7 @@ class SimpleGraph:
                 for i in range(self.max_vertex):
                     if v != i and self.m_adjacency[v][i] and not self.vertex[i].Hit:
                         stack.append(i)
+                        break
 
         if not stack or stack and stack[-1] != VTo:
             return []
