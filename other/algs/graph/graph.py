@@ -68,11 +68,14 @@ class SimpleGraph:
                 if v != i and self.m_adjacency[v][i]:
                     all_visited = all_visited and self.vertex[i].Hit
             if all_visited:
-                v.pop()
+                stack.pop()
             else:
                 for i in range(self.max_vertex):
                     if v != i and self.m_adjacency[v][i] and not self.vertex[i].Hit:
                         stack.append(i)
+
+        if not stack or stack and stack[-1] != VTo:
+            return []
 
         result = []
         for i in stack:
