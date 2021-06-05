@@ -1,6 +1,7 @@
 class Vertex:
     def __init__(self, val):
         self.Value = val
+        self.Hit = False
 
 
 class SimpleGraph:
@@ -40,3 +41,40 @@ class SimpleGraph:
         # удаление ребра между вершинами v1 и v2
         self.m_adjacency[v1][v2] = 0
         self.m_adjacency[v2][v1] = 0
+
+    def DepthFirstSearch(self, VFrom, VTo):
+        # узлы задаются позициями в списке vertex
+        # возвращается список узлов -- путь из VFrom в VTo
+        # или [] если пути нету
+        if VFrom < 0 or VFrom > len(self.vertex) or VTo < 0 or VTo > len(self.vertex):
+            return []
+        if self.vertex[VFrom] is None or self.vertex[VTo] is None:
+            return []
+        stack = [VFrom]
+        for v in self.vertex:
+            v.Hit = False
+        self.vertex[VFrom].Hit = True
+
+        while stack:
+            v = stack[-1]
+            self.vertex[v].Hit = True
+
+            if self.m_adjacency[v][VTo]:
+                self.vertex[VTo].Hit = True
+                stack.append(VTo)
+                break
+            all_visited = True
+            for i in range(self.max_vertex):
+                if v != i and self.m_adjacency[v][i]:
+                    all_visited = all_visited and self.vertex[i].Hit
+            if all_visited:
+                v.pop()
+            else:
+                for i in range(self.max_vertex):
+                    if v != i and self.m_adjacency[v][i] and not self.vertex[i].Hit:
+                        stack.append(i)
+
+        result = []
+        for i in stack:
+            result.append(self.vertex[i])
+        return result
