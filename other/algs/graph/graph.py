@@ -2,6 +2,7 @@ class Vertex:
     def __init__(self, val):
         self.Value = val
         self.Hit = False
+        self.InTriangle = False
 
 
 class SimpleGraph:
@@ -50,6 +51,8 @@ class SimpleGraph:
             return []
         if self.vertex[VFrom] is None or self.vertex[VTo] is None:
             return []
+        if VFrom == VTo:
+            return [self.vertex[VTo]]
         stack = [VFrom]
         for v in self.vertex:
             v.Hit = False
@@ -73,6 +76,7 @@ class SimpleGraph:
                 for i in range(self.max_vertex):
                     if v != i and self.m_adjacency[v][i] and not self.vertex[i].Hit:
                         stack.append(i)
+                        break
 
         if not stack or stack and stack[-1] != VTo:
             return []
@@ -80,4 +84,67 @@ class SimpleGraph:
         result = []
         for i in stack:
             result.append(self.vertex[i])
+        return result
+
+    def BreadthFirstSearch(self, VFrom, VTo):
+        # узлы задаются позициями в списке vertex
+        # возвращается список узлов -- путь из VFrom в VTo
+        # или [] если пути нету
+        if VFrom < 0 or VFrom > len(self.vertex) or VTo < 0 or VTo > len(self.vertex):
+            return []
+        if self.vertex[VFrom] is None or self.vertex[VTo] is None:
+            return []
+        if VFrom == VTo:
+            return [self.vertex[VTo]]
+
+        path = []
+        queue = [[VFrom]]
+        for v in self.vertex:
+            v.Hit = False
+        self.vertex[VFrom].Hit = True
+
+        while queue:
+            path = queue.pop(0)
+            v = path[-1]
+            if v == VTo:
+                break
+            ok = False
+            for i in range(self.max_vertex):
+                if i == VTo and self.m_adjacency[v][i]:
+                    ok = True
+                    path.append(i)
+                    break
+                if v != i and self.m_adjacency[v][i] and not self.vertex[i].Hit:
+                    p = path + [i]
+                    queue.append(p)
+            if ok:
+                break
+
+        if not path or path and path[-1] != VTo:
+            return []
+
+        result = []
+        for i in path:
+            result.append(self.vertex[i])
+        return result
+
+    def WeakVertices(self):
+        # возвращает список узлов вне треугольников
+        for v in self.vertex:
+            v.Hit = False
+            v.InTriangle = False
+
+        for i in range(self.max_vertex):
+            for j in range(self.max_vertex):
+                if i != j and self.m_adjacency[i][j]:
+                    for k in range(j + 1, self.max_vertex):
+                        if i != k and self.m_adjacency[i][k] and self.m_adjacency[j][k]:
+                            for x in [i, j, k]:
+                                self.vertex[x].InTriangle = True
+
+        result = []
+        for v in self.vertex:
+            if not v.InTriangle:
+                result.append(v)
+
         return result
