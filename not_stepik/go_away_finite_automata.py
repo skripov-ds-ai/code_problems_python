@@ -92,6 +92,8 @@ def remove_smiles_from_face(s):
         if j == i + 2:
             if j >= len(s) or s[j] not in p_types:
                 arr.append(s[i:i+2])
+                # if j >= len(s):
+                #     break
                 i += 2
                 j = i + 2
                 continue
@@ -128,6 +130,7 @@ cases = [
     ":-(-)",
     ":--:()",
     # неверно, правильно - ":--:()"
+    ":-):-:-:-(()",
 ]
 
 for case in cases:
