@@ -1,10 +1,11 @@
 from unittest import TestCase
-from other.algs.linked_list.linked_list import LinkedList, Node
+from other.algs.linked_list.linked_list2 import LinkedList2, Node
+# from other.algs.linked_list.linked_list2_cs106b import LinkedList2, Node
 
 
 class TestLinkedList(TestCase):
     def make_list(self, *vals):
-        l = LinkedList()
+        l = LinkedList2()
         nodes = []
         for v in vals:
             node = Node(v)
@@ -30,8 +31,13 @@ class TestLinkedList(TestCase):
         selected = 1
         l, _ = self.make_list(2, 2, 2, 42, 1)
         size = l.len() - 1
+        l.print_all_nodes()
+        print()
         l.delete(selected, all=False)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         print(l.head)
         print(l.tail)
         print(l.head.value)
@@ -56,7 +62,6 @@ class TestLinkedList(TestCase):
         l.print_all_nodes()
         print(l.head)
         print(l.tail)
-        print(l.len())
         self.assertEqual(size, l.len())
 
     def test_delete_all(self):
@@ -65,11 +70,29 @@ class TestLinkedList(TestCase):
         size = l.len() - 4
         l.delete(selected, all=True)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         print(l.head)
         print(l.tail)
         print(l.head.value)
         print(l.tail.value)
         self.assertEqual(size, l.len())
+
+    def test_delete_all42(self):
+        selected = 1
+        l, _ = self.make_list(7, 6, 8, 1, 1, 1, 1, 1, 2, 3, 4, 5, 1)
+        # size = l.len() - 4
+        l.delete(selected, all=True)
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
+        print(l.head)
+        print(l.tail)
+        # print(l.head.value)
+        # print(l.tail.value)
+        # self.assertEqual(size, l.len())
 
     def test_delete_all1(self):
         selected = 1
@@ -77,10 +100,45 @@ class TestLinkedList(TestCase):
         size = l.len()
         l.delete(selected, all=True)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         print(l.head)
         print(l.tail)
         print(l.head.value)
         print(l.tail.value)
+        self.assertEqual(size, l.len())
+
+    def test_delete_all3(self):
+        selected = 42
+        l, _ = self.make_list(2, 42, 42, 42)
+        size = 1
+        l.delete(selected, all=True)
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
+        # print(l.head)
+        # print(l.tail)
+        # print(l.head.value)
+        # print(l.tail.value)
+        print(l.len())
+        self.assertEqual(size, l.len())
+
+    def test_delete_all4(self):
+        selected = 42
+        l, _ = self.make_list(2, 42, 42, 42, 1)
+        size = 2
+        l.delete(selected, all=True)
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
+        # print(l.head)
+        # print(l.tail)
+        # print(l.head.value)
+        # print(l.tail.value)
+        print(l.len())
         self.assertEqual(size, l.len())
 
     # def test_delete_all2(self):
@@ -96,6 +154,11 @@ class TestLinkedList(TestCase):
     def test_clean(self):
         l, _ = self.make_list(1, 2)
         l.clean()
+
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
         self.assertEqual(0, l.len())
 
     def test_len_empty(self):
@@ -146,7 +209,6 @@ class TestLinkedList(TestCase):
         self.assertEqual(42, nodes[2].next.value)
 
     def test_insert_after3(self):
-        # TODO: FIX NONE!!!!!
         l, nodes = self.make_list()
         # self.assertEqual(3, l.len())
         node = Node(42)
@@ -202,6 +264,47 @@ class TestLinkedList(TestCase):
         print("-"*3)
         l.insert(None, node)
         l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
+        print(l.len())
+        # print(l.tail.value)
+        # print(l.head.value)
+        # print(l.tail.next)
+        # self.assertEqual(42, nodes[2].next.value)
+
+
+    def test_insert_after6(self):
+        l, nodes = self.make_list(1, 2)
+        # self.assertEqual(3, l.len())
+        node = Node(42)
+        l.print_all_nodes()
+        print()
+        print(l.len())
+        print("-"*3)
+        l.insert(nodes[0], node)
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
+        print()
+        print(l.len())
+        # print(l.tail.value)
+        # print(l.head.value)
+        # print(l.tail.next)
+        # self.assertEqual(42, nodes[2].next.value)
+
+    def test_insert_after7(self):
+        l, nodes = self.make_list(1, 2)
+        # self.assertEqual(3, l.len())
+        node = Node(42)
+        l.print_all_nodes()
+        print()
+        print(l.len())
+        print("-"*3)
+        l.insert(nodes[1], node)
+        l.print_all_nodes()
+        print()
+        l.print_all_reverse_nodes()
         print()
         print(l.len())
         # print(l.tail.value)

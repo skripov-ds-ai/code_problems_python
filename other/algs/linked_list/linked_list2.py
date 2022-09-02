@@ -1,26 +1,24 @@
 class Node:
     def __init__(self, v):
         self.value = v
+        self.prev = None
         self.next = None
 
 
-class LinkedList:
+class LinkedList2:
     def __init__(self):
         self.clean()
 
     def add_in_tail(self, item):
         if self.head is None:
             self.head = item
+            item.prev = None
+            item.next = None
         else:
             self.tail.next = item
+            item.prev = self.tail
         self.tail = item
         self._length += 1
-
-    def print_all_nodes(self):
-        node = self.head
-        while node != None:
-            print(node.value)
-            node = node.next
 
     def find(self, val):
         node = self.head
@@ -29,6 +27,7 @@ class LinkedList:
                 return node
             node = node.next
         return None
+        # здесь будет ваш код
 
     def find_all(self, val):
         elems = []
@@ -50,6 +49,8 @@ class LinkedList:
             while node and node.value == val:
                 self._length -= 1
                 node = node.next
+                if node:
+                    node.prev = prev
                 if not all:
                     ok = False
                     self.head = node
@@ -63,10 +64,14 @@ class LinkedList:
                     while node and node.value == val:
                         node = node.next
                         self._length -= 1
+                        if node:
+                            node.prev = prev
                         if not all:
                             ok = False
                             break
                     prev.next = node
+                    if node:
+                        node.prev = prev
 
                 if not ok:
                     break
@@ -80,6 +85,8 @@ class LinkedList:
                 self.tail = node
             node = node.next
         if self._length == 0:
+            self.tail = None
+        if not self.head:
             self.tail = None
         # здесь будет ваш код
 
@@ -97,25 +104,39 @@ class LinkedList:
         if not newNode:
             return
 
-        if self._length == 0:
+        if self._length == 0 or not afterNode and self._length > 0:
             self.add_in_tail(newNode)
             return
 
         self._length += 1
-        if not afterNode:
-            newNode.next = self.head
-            self.head = newNode
-            return
-
+        if afterNode.next:
+            afterNode.next.prev = newNode
         newNode.next = afterNode.next
         afterNode.next = newNode
+        newNode.prev = afterNode
         if newNode and not newNode.next:
             self.tail = newNode
-        # node = self.head
-        # while node is not afterNode:
-        #     node = node.next
-        # if node.next and node.next.next:
-        #     newNode.next = node.next.next
-        # node.next = newNode
+
+    def add_in_head(self, newNode):
+        if self.tail is None:
+            self.tail = newNode
+            newNode.prev = None
+            newNode.next = None
+        else:
+            self.head.prev = newNode
+            newNode.next = self.tail
+        self.head = newNode
+        self._length += 1
         # здесь будет ваш код
 
+    def print_all_nodes(self):
+        node = self.head
+        while node != None:
+            print(node.value)
+            node = node.next
+
+    def print_all_reverse_nodes(self):
+        node = self.tail
+        while node != None:
+            print(node.value)
+            node = node.prev
