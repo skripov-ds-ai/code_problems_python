@@ -71,6 +71,50 @@ def remove_smiles(s):
     return "".join(arr)
 
 
+def remove_smiles_from_face(s):
+    if len(s) <= 2:
+        return s
+    p_types = {"(", ")"}
+    i = 0
+    j = 2
+    p_type = None
+    arr = []
+    while i < len(s):
+        if s[i] != ":":
+            arr.append(s[i])
+            i += 1
+            j = i + 2
+            continue
+
+        if len(s) != i + 1 and s[i + 1] != "-":
+            arr.append(s[i:i+1])
+            i += 1
+            j = i + 2
+            continue
+
+        if j == i + 2 and (j >= len(s) or s[j] not in p_types):
+            arr.append(s[i:i+2])
+            i += 2
+            j = i + 2
+            continue
+
+        if j == i + 2:
+            if s[j] in p_types:
+                p_type = s[j]
+                j += 1
+                continue
+
+        if p_type is not None and j >= len(s):
+            break
+
+        if s[j] != p_type:
+            p_type = None
+            i = j
+            j = i + 2
+            continue
+        j += 1
+    return "".join(arr)
+
 # ":-\)+|:-\(+"
 cases = [
     "aa :-))( a",
@@ -96,6 +140,9 @@ cases = [
 
 for case in cases:
     tmp = remove_smiles(case)
-    # print()
+    tmp1 = remove_smiles_from_face(case)
+    print()
     print(f'"{case}" vs "{tmp}"')
+    print(f'"{tmp}" vs "{tmp1}"')
+    print(tmp == tmp1)
     # print()
