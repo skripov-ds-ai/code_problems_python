@@ -80,35 +80,29 @@ def remove_smiles_from_face(s):
     p_type = None
     arr = []
     while i < len(s):
-        if s[i] != ":":
+        if p_type and j >= len(s):
+            break
+
+        if s[i] != ":" or len(s) != i + 1 and s[i + 1] != "-":
             arr.append(s[i])
             i += 1
             j = i + 2
             continue
 
-        if len(s) != i + 1 and s[i + 1] != "-":
-            arr.append(s[i:i+1])
-            i += 1
-            j = i + 2
-            continue
-
-        if j == i + 2 and (j >= len(s) or s[j] not in p_types):
-            arr.append(s[i:i+2])
-            i += 2
-            j = i + 2
-            continue
-
-        if p_type is not None and j >= len(s):
-            break
+        if j == i + 2:
+            if j >= len(s) or s[j] not in p_types:
+                arr.append(s[i:i+2])
+                i += 2
+                j = i + 2
+                continue
+            if s[j] in p_types:
+                p_type = s[j]
 
         if p_type and s[j] != p_type:
             p_type = None
             i = j
             j = i + 2
             continue
-
-        if j == i + 2 and s[j] in p_types:
-            p_type = s[j]
         j += 1
     return "".join(arr)
 
