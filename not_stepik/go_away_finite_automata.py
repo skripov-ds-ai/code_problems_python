@@ -98,20 +98,17 @@ def remove_smiles_from_face(s):
             j = i + 2
             continue
 
-        if j == i + 2:
-            if s[j] in p_types:
-                p_type = s[j]
-                j += 1
-                continue
-
         if p_type is not None and j >= len(s):
             break
 
-        if s[j] != p_type:
+        if p_type and s[j] != p_type:
             p_type = None
             i = j
             j = i + 2
             continue
+
+        if j == i + 2 and s[j] in p_types:
+            p_type = s[j]
         j += 1
     return "".join(arr)
 
