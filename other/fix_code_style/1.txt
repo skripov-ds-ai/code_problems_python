@@ -1,0 +1,14 @@
+q - queue // внутреннее хранилище очереди - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/queue/queue.py
+p - prime_number // множитель при расчете хэш-функции - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/associative_array/native_array.py
+v - character // символ в поступившей строке - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/associative_array/native_array.py
+h - hash_result // результат вычисления хэш-функции, переменная в которой аккумулируется значение хэша - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/associative_array/native_array.py
+k - free_slot_index // переменная, хранящая индекс пустого слота - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/associative_array/native_array.py
+to_del - node_to_delete // вершина к удалению - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/tree/tree.py
+num - number_of_children // количество листьев в дереве - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/tree/tree.py
+tmp - node_quantity // количество узлов в дереве - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/tree/tree.py
+t - children_of_current_node_parent // узлы-"прямые дети" родителя узла, который надо переместить - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/tree/tree.py
+_len - length // количество вершин в дереве - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/tree/tree.py
+ok - stop_condition // переменная для выхода из цикла в зависимости от внутреннего цикла - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/deque/deque.py
+prev - previous_node // предыдущий элемент двусторонней очереди - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/deque/deque.py
+node - current_node // текущий элемент двусторонней очереди - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/deque/deque.py
+m_adjacency - adjacency_matrix // матрица смежности - https://github.com/nizhikebinesi/code_problems_python/blob/feature/other/other/algs/graph/graph.py
